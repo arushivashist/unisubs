@@ -1,0 +1,93 @@
+{% load i18n localeurl_tags %}
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+		<title></title>
+		<style>
+			/**
+			CSS Reset
+			*/
+			html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video {	margin: 0;	padding: 0;	border: 0;	font-size: 100%;	font: inherit;	vertical-align: baseline;}/* HTML5 display-role reset for older browsers */article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {	display: block;}body {	line-height: 1;}ol, ul {	list-style: none;}blockquote, q {	quotes: none;}blockquote:before, blockquote:after,q:before, q:after {	content: '';	content: none;}table {	border-collapse: collapse;	border-spacing: 0;}
+			   
+			* {-moz-box-sizing: border-box;box-sizing: border-box;margin: 0;padding: 0;} 
+			body{width:500px;margin: 0 auto;overflow-x:hidden;font-family:"Helvetica";color:#525252;}
+			h1{font-size:35px;font-weight:bold;}
+			.header{margin-top:50px;margin-left:-20px;}
+			b{font-weight:bold;}
+			a{color:#126997;}
+			img{margin-left:30px}
+		
+			/**
+			Team name and logo
+			*/
+			.space{margin-top:-55px;margin-left:200px;}
+			.team_title{margin-top:-50px;margin-left:245px;width:100%;}
+			.team_title h1{color:#ed1e25;} /** Change color based on team */
+
+			/**
+			Name of email recipient 
+			*/
+			.name{margin-top:-35px;margin-left:40px;}
+		
+			/**
+			Opening information 
+			*/
+			.hello{margin-top:50px;margin-left:30px;}
+			.hello p{margin-top:20px;line-height:25px;font-size:18px;}
+			.hello a{font-weight:bold;font-size:18px;}
+		
+			/**
+			Video stils,image, play overlay and link button
+			*/
+			.video_stills{margin-top:50px;}
+			.vid{padding-bottom:70px;}
+			.vid img{width:400px;height:230px;}
+			.vid_still img{background:#333;width:400px;border:0;}
+			.vid_title{margin-top:80px;margin-left:30px;width:400px;}
+			.vid_title h1{font-size:25px;}
+		
+			button.link_button{margin-left:30px;font-size:16px;background:#126997 ;
+			margin-top:20px;width:230px;height:40px;color:#fff;-
+			-moz-border-radius:3px;
+			-webkit-border-radius:3px;border-style:none;-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
+			border-radius: 5px; 
+			-khtml-border-radius: 5px;font-weight:bold;cursor: pointer;}
+		
+			.play_overlay{margin-left:150px;margin-top:-170px;}
+			.play_overlay img{width:104px;height:104px;}
+			  
+			/**
+			Footer information 
+			*/
+			.footer{width:100%; background:#efeeee ;height:500px;left:0;right:0;position:absolute;}
+			.footer_content{z-index:99999;margin-top:50px;position:relative;margin-left:30px;}
+			.footer_content p{padding-bottom:10px;line-height:25px;}
+			.footer_content a{text-decoration:none;}
+			.footer_logo{margin-left:-30px;margin-top:30px;}
+		</style>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+
+        {% block content %}{% endblock %}
+        {% block dont_send %}
+	
+	    <!-- Footer -->
+		<div class="footer">
+			<div class="footer_content">
+		        <p>Copyright  &#169; 2013 <a href="http://pculture.org" target="_blank">Participatory Culture Foundation</a></p>
+		        <p>P.O. Box 55071 &#035;20335, Boston, MA 02205-5071</p>
+				{% block stop_notification %}
+		        <p>{% trans 'To stop receiving these emails, go to your preferences page and uncheck "notify me by email":' %} <a href="http://{{ domain }}{% filter rmlocale %}{% url profiles:edit %}{% endfilter %}" target="_blank">{% trans 'My profile / preferences' %}</a></p>
+				{% endblock %}
+		        <div class="footer_logo"><a href="http://amara.org/" target="_blank"><img src="{{ STATIC_URL_BASE }}images/interface/footer_logo.png"></a></div>
+		    </div>
+		</div>  
+	</body>
+</html>
