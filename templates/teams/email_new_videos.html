@@ -31,7 +31,7 @@
 		<div class="vid_still"><a href="http://{{ domain }}{{ tv.video.get_absolute_url|rmlocale }}" target="_blank"><img src="{{ tv.video.get_thumbnail }}" alt="{{ tv.video.title }}"></a></div>
 		<div class="play_overlay"><a href="http://{{ domain }}{{ tv.video.get_absolute_url|rmlocale }}" target="_blank"><img src="{{ STATIC_URL_BASE }}images/interface/play_overlay.png"></a></div>
 		<div class="vid_title"><h1>{{ tv.video.title }}</h1></div>
-		<a href="{{ tv.video.get_tasks_page_url" target="_blank"><button class="link_button">{% trans "Caption or translate now" %}</button></a>
+		<a href="{{ tv.video.get_tasks_page_url }}" target="_blank"><button class="link_button">{% trans "Caption or translate now" %}</button></a>
 	</div>
 	{% endfor %}
 		
