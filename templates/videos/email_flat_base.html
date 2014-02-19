@@ -9,15 +9,15 @@
 			CSS Reset
 			*/
 			html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video {	margin: 0;	padding: 0;	border: 0;	font-size: 100%;	font: inherit;	vertical-align: baseline;}/* HTML5 display-role reset for older browsers */article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {	display: block;}body {	line-height: 1;}ol, ul {	list-style: none;}blockquote, q {	quotes: none;}blockquote:before, blockquote:after,q:before, q:after {	content: '';	content: none;}table {	border-collapse: collapse;	border-spacing: 0;}
-			   
-			* {-moz-box-sizing: border-box;box-sizing: border-box;margin: 0;padding: 0;} 
+
+			* {-moz-box-sizing: border-box;box-sizing: border-box;margin: 0;padding: 0;}
 			body{width:500px;margin: 0 auto;overflow-x:hidden;font-family:"Helvetica";color:#525252;}
 			h1{font-size:35px;font-weight:bold;}
 			.header{margin-top:50px;margin-left:-20px;}
 			b{font-weight:bold;}
 			a{color:#126997;}
 			img{margin-left:30px}
-		
+
 			/**
 			Team name and logo
 			*/
@@ -26,17 +26,17 @@
 			.team_title h1{color:#ed1e25;} /** Change color based on team */
 
 			/**
-			Name of email recipient 
+			Name of email recipient
 			*/
 			.name{margin-top:-35px;margin-left:40px;}
-		
+
 			/**
-			Opening information 
+			Opening information
 			*/
 			.hello{margin-top:50px;margin-left:30px;}
 			.hello p{margin-top:20px;line-height:25px;font-size:18px;}
 			.hello a{font-weight:bold;font-size:18px;}
-		
+
 			/**
 			Video stils,image, play overlay and link button
 			*/
@@ -46,20 +46,20 @@
 			.vid_still img{background:#333;width:400px;border:0;}
 			.vid_title{margin-top:80px;margin-left:30px;width:400px;}
 			.vid_title h1{font-size:25px;}
-		
+
 			button.link_button{margin-left:30px;font-size:16px;background:#126997 ;
 			margin-top:20px;width:230px;height:40px;color:#fff;-
 			-moz-border-radius:3px;
 			-webkit-border-radius:3px;border-style:none;-moz-border-radius: 5px;
 			-webkit-border-radius: 5px;
-			border-radius: 5px; 
+			border-radius: 5px;
 			-khtml-border-radius: 5px;font-weight:bold;cursor: pointer;}
-		
+
 			.play_overlay{margin-left:150px;margin-top:-170px;}
 			.play_overlay img{width:104px;height:104px;}
-			  
+
 			/**
-			Footer information 
+			Footer information
 			*/
 			.footer{width:100%; background:#efeeee ;height:500px;left:0;right:0;position:absolute;}
 			.footer_content{z-index:99999;margin-top:50px;position:relative;margin-left:30px;}
@@ -76,8 +76,7 @@
 	<body>
 
         {% block content %}{% endblock %}
-        {% block dont_send %}
-	
+
 	    <!-- Footer -->
 		<div class="footer">
 			<div class="footer_content">
@@ -88,6 +87,6 @@
 				{% endblock %}
 		        <div class="footer_logo"><a href="http://amara.org/" target="_blank"><img src="{{ STATIC_URL_BASE }}images/interface/footer_logo.png"></a></div>
 		    </div>
-		</div>  
+		</div>
 	</body>
 </html>

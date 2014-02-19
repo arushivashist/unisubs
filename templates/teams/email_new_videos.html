@@ -7,19 +7,19 @@
 	<div class="header">
 		<!-- Logo and Team name  -->
 		<div class="amara_logo">
-			<a href="http://amara.org/" target="_blank"><img src="{{ STATIC_URL_BASE }}images/interface/email_logo.png"></a>  
+			<a href="http://amara.org/" target="_blank"><img src="{{ STATIC_URL_BASE }}images/interface/email_logo.png"></a>
 		    <div class="space"><img src="{{ STATIC_URL_BASE }}images/interface/space.png"></div>
     		{% blocktrans with team as team_name %}
 		    	<div class="team_title"><h1>{{ team_name }} Team</h1></div>
   			{% endblocktrans %}
 		</div>
-	
+
 		<!-- Team name and recipient name  -->
 		<div class="hello">
 			<h1>Hi</h1><h1 class="name">{{ user.username }}!</h1>
 	        {% blocktrans with team as team_name and team.get_absolute_url|rmlocale as team_url %}
             <p>
-				The <a href="http://{{ domain }}{{ team_url }}">{{ team_name }}</a> 
+				The <a href="http://{{ domain }}{{ team_url }}">{{ team_name }}</a>
 				Team has just added new videos that need captions and translations, we'd love your help.
 			</p><br>
 			<a href="" target="_blank">Visit <a href="http://{{ domain }}{{ team_url }}">{{ team_name }}</a>  Team dashboard</a>
@@ -34,7 +34,5 @@
 		<a href="{{ tv.video.get_tasks_page_url }}" target="_blank"><button class="link_button">{% trans "Caption or translate now" %}</button></a>
 	</div>
 	{% endfor %}
-		
-{% endblock %}
 
-{% block dont_send %}{% endblock %}
+{% endblock %}
