@@ -19,30 +19,42 @@
 from datetime import timedelta
 from settings import *
 import logging
+import os
 
 SITE_ID = 4
 SITE_NAME = 'unisubs-dev'
 
 BROKER_BACKEND = 'amqplib'
-BROKER_HOST = 'localhost'
-BROKER_USER = 'usrmquser'
-BROKER_PASSWORD = 'usrmqpassword'
-BROKER_PORT = 5672
+BROKER_HOST = os.environ.get('QUEUE_1_PORT_5672_TCP_ADDR')
+BROKER_USER = 'guest'
+BROKER_PASSWORD = 'guest'
+BROKER_PORT = os.environ.get('QUEUE_1_PORT_5672_TCP_PORT')
 
 JS_USE_COMPILED = True
 
-debug = False
+debug = True
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "unisubs",
-        'USER': "root",
-        'PASSWORD': "root",
-        'HOST': "localhost",
-        'PORT': '3306'
+        'NAME': "amara",
+        'USER': "amara",
+        'PASSWORD': "amara",
+        'HOST': os.environ.get('DB_1_PORT_3306_TCP_ADDR'),
+        'PORT': os.environ.get('DB_1_PORT_3306_TCP_PORT'),
         }
     }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '{}:{}'.format(os.environ.get('CACHE_1_PORT_11211_TCP_ADDR'),
+            os.environ.get('CACHE_1_PORT_11211_TCP_PORT')),
+    }
+}
+
+HAYSTACK_SOLR_URL = 'http://{}:{}/solr/'.format(os.environ.get('SEARCH_1_PORT_8983_TCP_ADDR'),
+        os.environ.get('SEARCH_1_PORT_8983_TCP_PORT'))
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'a9yr_yzp2vmj-2q1zq)d2+b^w(7fqu2o&jh18u9dozjbd@-$0!'
@@ -63,7 +75,6 @@ FACEBOOK_SECRET_KEY = '2a18604dac1ad7e9817f80f3aa3a69f2'
 
 # Celery
 CELERY_ALWAYS_EAGER = True
-HAYSTACK_SOLR_URL = 'http://127.0.0.1:8983/solr/vagrant'
 CELERY_TASK_RESULT_EXPIRES = timedelta(days=7)
 
 # Or you can use redis as backend

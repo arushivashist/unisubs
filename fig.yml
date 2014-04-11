@@ -1,0 +1,45 @@
+web:
+  build: .
+  command: python manage.py runserver 0.0.0.0:8000 --settings=dev_settings
+  volumes:
+    - .:/opt/apps/unisubs
+  ports:
+    - "8000:8000"
+  links:
+    - db
+    - queue
+    - cache
+    - search
+worker:
+  build: .
+  command: python manage.py celery worker --scheduler=djcelery.schedulers.DatabaseScheduler --loglevel=DEBUG -B -E --settings=dev_settings
+  volumes:
+    - .:/opt/apps/unisubs
+  links:
+    - db
+    - queue
+    - cache
+    - search
+db:
+  image: orchardup/mysql
+  environment:
+    MYSQL_USER: amara
+    MYSQL_PASSWORD: amara
+    MYSQL_DATABASE: amara
+  ports:
+    - "3306"
+queue:
+  image: amara/rabbitmq
+  ports:
+    - "5672"
+    - "15672"
+cache:
+  image: amara/memcached
+  ports:
+    - "11211"
+search:
+  image: amara/solr:3.6.2
+  ports:
+    - "8983"
+  volumes:
+    - ./schema.xml:/opt/solr/example/solr/conf/schema.xml

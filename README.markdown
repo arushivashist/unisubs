@@ -1,21 +1,14 @@
-This repository is the code for the [Amara][] project.
+This repository is the code for the [Amara](http://amara.org) project.
 
 The full documentation can be found at
 http://amara.readthedocs.org/en/latest/index.html
 
-[Amara]: http://universalsubtitles.org
+[Amara]: http://amara.org
 
 Quick Start
 -----------
 
-Amara uses [Vagrant][] to make it easy to get started.  If you've
-never used Vagrant before we highly recommend going through its [quick start
-guide][vagrant-guide] to learn how it works.
-
-[Vagrant]: http://vagrantup.com/
-[vagrant-guide]: http://docs.vagrantup.com/v1/docs/getting-started/index.html
-
-To run the development version:
+Amara uses [Docker](http://docker.io).  For ease of development, we use the [Fig](http://orchardup.github.io/fig/) tool to have a full, production like, local dev environment.
 
 1. Git clone the repository:
 
@@ -23,123 +16,50 @@ To run the development version:
 
    Now the entire project will be in the unisubs directory.
 
-2. Install VirtualBox and vagrant if you don't have them yet. Then type:
+2. Install Fig (http://orchardup.github.io/fig/install.html)
 
-        vagrant up
+3. Start Amara Services:
 
-   This is going to create a vm and provision it. It should take 10-15 minutes.
-   Remember what mom said: a watched pot never boils.
+        fig up -d db worker cache search queue
 
-3. Switch over to your vagrant vm with:
+4. Configure Database:
 
-        vagrant ssh
+        ./bin/dev_syncdb.sh
 
-   By default our `~/.bashrc` file will automatically move you to the shared
-   folder and activate the virtualenv.
+5. Start Amara:
 
-   Now run following command:
+        fig up web
 
-        bootstrap-vagrant.sh
-
-   It's safe to run `bootstrap-vagrant.sh` multiple times if something goes
-   wrong (like PyPi goes down).
-
-4. Add `unisubs.example.com` to your hosts file, pointing at `127.0.0.1`.  This
+6. Add `unisubs.example.com` to your hosts file, pointing at `127.0.0.1`.  This
    is necessary for Twitter and Facebook oauth to work correctly.
 
-5. In your vagrant vm (the one you switched to in step 3), run the site with:
-
-        dev-runserver.sh
-
    You can access the site at <http://unisubs.example.com:8000>.
+
+To see services logs, run `fig logs <service>` i.e. `fig logs worker`
 
 Testing
 -------
 
-To run unit tests, use the `pmt` alias.  This will ensure that you're using the
-correct settings for testing.
+To run the test suite:
 
-You can specify specific tests to run, just like if you were using `nosetests`.
-For example:
-
-    $ vagrant ssh
-
-    # Just the tests in apps/teams/tests/permissions.py
-    $ pmt apps.teams.tests.permissions
-
-    # Tests defined as a class in apps/teams/tests/permissions.py
-    $ pmt apps.teams.tests.permissions:TestRules
-
-    # One specific test
-    $ pmt apps.teams.tests.permissions:TestRules.test_can_add_video
-
-    # Everything:
-    $ pmt
-
-Note: you may need to rebuild the Solr schema after running tests.  To do so,
-run the following command on the server:
-
-    sudo ./deploy/update_solr_schema_vagrant.sh
-
-**TODO:** Fix this.
-
-Optional
---------
-
-You can optionally set up a few other pieces of the development environment that
-we haven't automated yet.
-
-### RabbitMQ and Celery
-
-Add the following to `settings_local.py` to use RabbitMQ and Celery for async
-tasks:
-
-    CELERY_ALWAYS_EAGER = False
-    CELERY_RESULT_BACKEND = "amqp"
-    BROKER_BACKEND = 'amqplib'
-    BROKER_HOST = "localhost"
-    BROKER_PORT = 5672
-    BROKER_USER = "usrmquser"
-    BROKER_PASSWORD = "usrmqpassword"
-    BROKER_VHOST = "ushost"
-
-### Werkzeug Debugger
-
-If you want to use the awesome Werkzeug debugging runserver instead of the
-standard Django one, you just have to run (while the virtualenv is activated):
-
-    pip install werkzeug
-
-And then use `./dev-runserver.sh plus` to run it.
-
-### bpython shell
-
-If you want to use the awesome bpython shell instead of the normal one you just
-need to run (while the virtualenv is activated):
-
-    pip install bpython
-
-Now when you run `pm shell` it will use bpython automatically.
-
-### Metrics
-
-If you want to collect metrics when developing locally (just out of curiosity,
-or if you want to add some of your own and test them) you'll need to set up the
-amara-metrics Vagrant box:
-
-    git clone git://github.com/pculture/amara-metrics.git metrics
-    cd metrics
-    vagrant up
-
-Then add the following line to `/etc/hosts` on your local (host) machine:
-
-    10.10.10.44	graphite.example.com
-
-Finally, turn on metric reporting by changing the `ENABLE_METRICS` setting in
-`settings_local.py` to `True`.
-
-Now load a few pages to generate some stats, then point your browser at
-<http://graphite.example.com> to see the Graphite dashboard.  The stats should
-be under `unisubs` (which is the hostname of the Vagrant VM).
+        ./bin/test.sh
 
 
+Dev Notes
+---------
+
+To run a single `manage.py` command:
+
+        fig run --rm web python manage.py <command>
+
+To see running services:
+
+        fig ps
+
+To stop and remove all containers:
+
+        fig kill ; fig rm
+
+To view logs from a service:
+
+        fig logs <service>
