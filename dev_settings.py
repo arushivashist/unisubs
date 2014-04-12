@@ -21,7 +21,7 @@ from settings import *
 import logging
 import os
 
-SITE_ID = 4
+SITE_ID = 1
 SITE_NAME = 'unisubs-dev'
 
 BROKER_BACKEND = 'amqplib'
@@ -29,6 +29,7 @@ BROKER_HOST = os.environ.get('QUEUE_1_PORT_5672_TCP_ADDR')
 BROKER_USER = 'guest'
 BROKER_PASSWORD = 'guest'
 BROKER_PORT = os.environ.get('QUEUE_1_PORT_5672_TCP_PORT')
+EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 JS_USE_COMPILED = True
 
