@@ -63,3 +63,7 @@ To stop and remove all containers:
 To view logs from a service:
 
         fig logs <service>
+
+To create an admin user:
+
+        fig run --rm web python manage.py create_admin --username=<username> --password=<password> --settings=dev_settings
