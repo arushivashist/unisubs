@@ -38,7 +38,7 @@ cache:
   ports:
     - "11211"
 search:
-  image: amara/solr:3.6.2
+  image: amara/solr
   ports:
     - "8983"
   volumes:
