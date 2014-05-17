@@ -95,11 +95,13 @@ def save_thumbnail_in_s3(video_id):
 
 @task
 def update_from_feed(*args, **kwargs):
+    return
     for feed in VideoFeed.objects.all():
         update_video_feed.delay(feed.pk)
 
 @task
 def update_video_feed(video_feed_id):
+    return
     try:
         video_feed = VideoFeed.objects.get(pk=video_feed_id)
         video_feed.update()
